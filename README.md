@@ -43,6 +43,7 @@ taskmanager-backend
 
 taskmanager-frontend
 
+```
 📂 Projektstruktur
 taskmanager-fullstack/
 ├── backend/
@@ -56,6 +57,7 @@ taskmanager-fullstack/
 │   ├── Dockerfile
 │   └── ...
 └── docker-compose.yml
+```
 
 🐳 Docker – Projekt starten
 🔧 Build
