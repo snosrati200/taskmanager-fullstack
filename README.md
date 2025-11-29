@@ -1,133 +1,139 @@
-TaskManager – Fullstack Projekt (Spring Boot + React)
+📌 Taskmanager – Fullstack Projekt (Spring Boot + React + Docker)
 
-Ein vollständiges Full-Stack Projekt mit Spring Boot 3 (Backend) und React + Vite (Frontend).
-Dieses Projekt zeigt moderne Softwareentwicklung mit sauberer Architektur, DTOs, Service Layer,
-globalem Exception Handling und einem modernen React-Frontend.
+Ein moderner Fullstack-Taskmanager mit Spring Boot Backend, React-Frontend, REST API und vollständigem Docker-Support für einfaches Deployment.
 
-🚀 Technologien
-Backend
+🚀 Features
+Frontend (React + Vite)
 
-Java 17+
+Login & Registrierung
 
-Spring Boot 3.x
+Aufgabenliste mit CRUD
 
-Spring Web
+Drag & Drop (optional)
 
-Spring Data JPA
+Responsive UI
 
-H2 Database
+API-Anbindung ans Backend
 
-DTOs (Request/Response)
+Deployment-ready (Docker + Nginx)
 
-GlobalExceptionHandler
+Backend (Spring Boot)
 
-Frontend
+REST API (Tasks, User, Auth)
 
-React (Vite)
+DB-Anbindung (H2 / Postgres)
 
-Axios
+Exception Handling
 
-Modern Hooks (useState, useEffect)
+DTOs & Services sauber getrennt
 
-✨ Features
-Backend-Features
+Production Profile verfügbar
 
-✔ REST API:
+DevOps & Deployment
 
-GET /tasks
+Dockerfile für Backend
 
-GET /tasks/{id}
+Dockerfile für Frontend
 
-POST /tasks
+docker-compose.yml
 
-PUT /tasks/{id}
+Produziert zwei Images:
 
-DELETE /tasks/{id}
+taskmanager-backend
 
-✔ Saubere Architektur
-✔ DTOs für Request & Response
-✔ Validerung (3–100 Zeichen, nicht leer)
-✔ Eigene Exception: TaskNotFoundException
-✔ GlobalExceptionHandler
+taskmanager-frontend
 
-Frontend-Features
+📂 Projektstruktur
+taskmanager-fullstack/
+├── backend/
+│   ├── src/
+│   ├── pom.xml
+│   ├── Dockerfile
+│   └── ...
+├── frontend/
+│   ├── src/
+│   ├── package.json
+│   ├── Dockerfile
+│   └── ...
+└── docker-compose.yml
 
-✔ Aufgaben anzeigen
-✔ Neue Aufgaben erstellen
-✔ Aufgaben löschen
-✔ Aufgabe als erledigt markieren
-✔ Live-Update ohne Reload
-✔ Moderne Komponentenstruktur
-✔ Styled UI
+🐳 Docker – Projekt starten
+🔧 Build
+docker compose build
 
-🗂 Projektstruktur
+▶️ Starten
+docker compose up
 
-Backend (taskmanager-backend/)
+📍 URLs
+Service	URL
+Frontend	http://localhost:5173
 
-src/main/java/com/example/taskmanager/
-   ├── TaskController.java
-   ├── TaskService.java
-   ├── TaskRepository.java
-   ├── Task.java
-   ├── dto/
-   │    ├── TaskRequestDTO.java
-   │    └── TaskResponseDTO.java
-   ├── exception/
-   │    ├── TaskNotFoundException.java
-   │    └── GlobalExceptionHandler.java
-
-   Frontend (taskmanager-frontend/)
-
-src/
-  ├── api/taskApi.js
-  ├── components/
-  │     ├── TaskForm.jsx
-  │     ├── TaskItem.jsx
-  │     └── TaskList.jsx
-  ├── pages/
-  │     └── Home.jsx
-  ├── App.jsx
-  ├── main.jsx
-
-▶️ Projekt starten
+Backend API	http://localhost:8080
+🧪 Lokale Entwicklung (ohne Docker)
 Backend starten
 cd backend
 mvn spring-boot:run
-
-
-📍 Läuft auf: http://localhost:8080
 
 Frontend starten
 cd frontend
 npm install
 npm run dev
 
+🔒 Authentifizierung
 
-📍 Läuft auf: http://localhost:5173
+Registrierung & Login
 
-🧪 Beispiel-Requests
-➕ Task anlegen
-POST /tasks
-{
-  "title": "Learn Spring Boot",
-  "completed": false
-}
+Passwort-Hashing
 
-✏️ Task aktualisieren
-PUT /tasks/1
-{
-  "title": "Learn Spring Boot deeply",
-  "completed": true
-}
+JWT Tokens (falls vorhanden)
 
-📘 Lernreise / Projektverlauf
+📦 Produktion (VPS-Deployment)
 
-Tag 1: Moderne Java Basics
-Tag 2: Backend-Architektur (DTOs, Service, Exceptions)
-Tag 3: Frontend + Backend Fullstack Integration
-Tag 4: Deployment (folgt)
-Tag 5: Login, JWT, Auth (optional)
+Nach Serverbereitstellung:
 
-🎯 Ziel
+git pull
+docker compose build --no-cache
+docker compose up -d
 
-Dieses Projekt demonstriert sauberes Full-Stack Engineering
+📝 API Endpoints (Beispiele)
+GET /api/tasks
+
+Liefert alle Tasks.
+
+POST /api/tasks
+
+Erstellt einen neuen Task.
+
+DELETE /api/tasks/{id}
+📘 Technologien
+Frontend
+
+React
+
+Vite
+
+Axios
+
+Tailwind oder CSS
+
+Backend
+
+Spring Boot
+
+Java 17+
+
+Maven
+
+Spring Web
+
+H2 / PostgreSQL
+
+Spring Security (falls genutzt)
+
+DevOps
+
+Docker
+
+Nginx (Frontend)
+
+docker-compose
