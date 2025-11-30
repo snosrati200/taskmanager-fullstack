@@ -1,51 +1,47 @@
-📌 Taskmanager – Fullstack Projekt (Spring Boot + React + Docker)
+📌**Taskmanager – Fullstack Projekt (Spring Boot + React + Docker)**
 
-Ein moderner Fullstack-Taskmanager mit Spring Boot Backend, React-Frontend, REST API und vollständigem Docker-Support für einfaches Deployment.
+Ein moderner Fullstack-Taskmanager mit **Spring Boot Backend, React-Frontend, REST API** und vollständigem **Docker-Deployment**.
 
-🚀 Features
-Frontend (React + Vite)
+🚀** Features**
+**Frontend (React + Vite)**
 
-Login & Registrierung
+- Login & Registrierung
 
-Aufgabenliste mit CRUD
+- Aufgabenliste mit vollwertigem CRUD
 
-Drag & Drop (optional)
+- Responsive UI
 
-Responsive UI
+- API-Anbindung ans Backend
 
-API-Anbindung ans Backend
+- Produktionsbuild über Docker + Nginx
 
-Deployment-ready (Docker + Nginx)
+**Backend (Spring Boot)**
 
-Backend (Spring Boot)
+- REST API (Tasks, User, Auth)
 
-REST API (Tasks, User, Auth)
+- H2 / PostgreSQL
 
-DB-Anbindung (H2 / Postgres)
+- DTO- und Service-Schichten
 
-Exception Handling
+- Exception-Handling
 
-DTOs & Services sauber getrennt
+- Production-Profile
 
-Production Profile verfügbar
+**DevOps**
 
-DevOps & Deployment
+- Dockerfile (Backend)
 
-Dockerfile für Backend
+- Dockerfile (Frontend, Node 24)
 
-Dockerfile für Frontend
+- docker-compose.yml
 
-docker-compose.yml
+- Build & Deployment optimiert
 
-Produziert zwei Images:
-
-taskmanager-backend
-
-taskmanager-frontend
-
-```
 📂 Projektstruktur
+
+Build & Deployment optimiert
 taskmanager-fullstack/
+```
 ├── backend/
 │   ├── src/
 │   ├── pom.xml
@@ -59,70 +55,89 @@ taskmanager-fullstack/
 └── docker-compose.yml
 ```
 
-🐳 Docker – Projekt starten
-🔧 Build
+**🐳 Docker – Projekt starten**  
+🔧 **Build**  
+```nginx
 docker compose build
-
-▶️ Starten
-docker compose up
-
+```
 📍 URLs
-Service	URL
-Frontend	http://localhost:5173
+| Service     | URL                                            |
+| ----------- | ---------------------------------------------- |
+| Frontend    | [http://localhost:5173](http://localhost:5173) |
+| Backend API | [http://localhost:8080](http://localhost:8080) |
 
-Backend API	http://localhost:8080
-🧪 Lokale Entwicklung (ohne Docker)
-Backend starten
+🧪 **Lokale Entwicklung (ohne Docker)**  
+ **Backend starten**
+```arduino
 cd backend
 mvn spring-boot:run
-
-Frontend starten
+```
+**Frontend starten**
+```
 cd frontend
 npm install
 npm run dev
+```
+🔒 **Authentifizierung**
 
-🔒 Authentifizierung
+- Registrierung & Login
 
-Registrierung & Login
+- Passwort-Hashing
 
-Passwort-Hashing
+- JWT Tokens (falls aktiviert)
 
-JWT Tokens (falls vorhanden)
-
-📦 Produktion (VPS-Deployment)
-
-Nach Serverbereitstellung:
-
+📦 Produktion (VPS Deployment)
+```nginx
 git pull
 docker compose build --no-cache
 docker compose up -d
+```
+📝 **API Endpoints (Beispiele)**
 
-📝 API Endpoints (Beispiele)
-GET /api/tasks
+**GET /api/tasks**
+→ Liefert alle Tasks.
 
-Liefert alle Tasks.
+**POST /api/tasks**
+→ Erstellt einen Task.
 
-POST /api/tasks
+**DELETE /api/tasks/{id}**
+→ Löscht einen Task.
 
-Erstellt einen neuen Task.
+🛠 **Technologien**  
+**Backend**
 
-DELETE /api/tasks/{id}
-## Technologien
-
-### Backend
 - Java 25 (Eclipse Temurin)
-- Spring Boot 3
-- Maven
-- Spring Web
-- Spring Security (falls aktiviert)
-- H2 (Entwicklung) / PostgreSQL (Produktion)
 
-### Frontend
+- Spring Boot 3
+
+- Maven
+
+- Spring Web
+
+- Spring Security (optional)
+
+- H2 (Dev) / PostgreSQL (Prod)
+
+**Frontend**
+
 - React
+
 - Vite
+
 - Node.js 24 (Docker-Build)
 
-### DevOps & Deployment
+**DevOps**
+
 - Docker
+
 - Docker Compose
-- Nginx (für das ausgelieferte Frontend)
+
+- Nginx (Frontend Build)
+
+
+
+
+
+
+
+
