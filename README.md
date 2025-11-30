@@ -107,35 +107,22 @@ POST /api/tasks
 Erstellt einen neuen Task.
 
 DELETE /api/tasks/{id}
-📘 Technologien
-Frontend
+## Technologien
 
-React
+### Backend
+- Java 25 (Eclipse Temurin)
+- Spring Boot 3
+- Maven
+- Spring Web
+- Spring Security (falls aktiviert)
+- H2 (Entwicklung) / PostgreSQL (Produktion)
 
-Vite
+### Frontend
+- React
+- Vite
+- Node.js 24 (Docker-Build)
 
-Axios
-
-Tailwind oder CSS
-
-Backend
-
-Spring Boot
-
-Java 17+
-
-Maven
-
-Spring Web
-
-H2 / PostgreSQL
-
-Spring Security (falls genutzt)
-
-DevOps
-
-Docker
-
-Nginx (Frontend)
-
-docker-compose
+### DevOps & Deployment
+- Docker
+- Docker Compose
+- Nginx (für das ausgelieferte Frontend)
