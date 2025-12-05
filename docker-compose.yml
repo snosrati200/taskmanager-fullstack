@@ -1,11 +1,9 @@
-
-
 services:
   backend:
     build: ./backend
     container_name: taskmanager-backend
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     restart: always
@@ -13,8 +11,23 @@ services:
   frontend:
     build: ./frontend
     container_name: taskmanager-frontend
-    ports:
-      - "5173:80"
+    expose:
+      - "80"
     depends_on:
+      - backend
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: taskmanager-nginx
+    ports:
+      - "80:80"    # HTTP
+      - "443:443"  # HTTPS
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt/live/sn-taskmanager.de:/etc/letsencrypt/live/sn-taskmanager.de:ro
+      - /etc/letsencrypt/archive/sn-taskmanager.de:/etc/letsencrypt/archive/sn-taskmanager.de:ro
+    depends_on:
+      - frontend
       - backend
     restart: always

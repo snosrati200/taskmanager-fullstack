@@ -1,7 +1,7 @@
 // src/api/taskApi.js
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/tasks";
+const API_URL = "https://sn-taskmanager.de/api/tasks";
 
 // GET all tasks
 export const getTasks = () => axios.get(API_URL);
