@@ -9,7 +9,7 @@ COPY . .
 
 # Important:
 ENV NODE_ENV=production
-ENV VITE_API_URL=https://sn-taskmanager.de/api
+ENV VITE_API_URL=/api
 
 RUN npm run build
 
