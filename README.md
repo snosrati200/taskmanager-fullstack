@@ -1,143 +1,108 @@
-📌**Taskmanager – Fullstack Projekt (Spring Boot + React + Docker)**
+# 📘 TaskManager – Fullstack Projekt
 
-Ein moderner Fullstack-Taskmanager mit **Spring Boot Backend, React-Frontend, REST API** und vollständigem **Docker-Deployment**.
+Dies ist eine moderne, vollständig containerisierte **Full-Stack-Webanwendung** zur Aufgabenverwaltung (To-Do/Task-Management), erstellt im Rahmen eines **intensiven Lernprogramms**.
 
-🚀** Features**
-**Frontend (React + Vite)**
+[![Tech Stack](https://img.shields.io/badge/Stack-Fullstack-informational)](#-technologie-stack--architektur)
+[![Backend](https://img.shields.io/badge/Backend-Spring%20Boot%20(Java%2025)-brightgreen)](#-technologie-stack--architektur)
+[![Frontend](https://img.shields.io/badge/Frontend-Vite-blue)](#-technologie-stack--architektur)
+[![Deployment](https://img.shields.io/badge/Deployment-Docker%20Compose-blue)](#-produktion-starten-deployment)
+[![Proxy](https://img.shields.io/badge/Proxy-Nginx%20+%20HTTPS-red)](#-docker-compose--dienste-und-routing)
 
-- Login & Registrierung
+---
 
-- Aufgabenliste mit vollwertigem CRUD
+## 🛠 Technologie-Stack & Architektur
 
-- Responsive UI
+Die Anwendung besteht aus folgenden Hauptkomponenten, die über **Docker Compose** orchestriert werden:
 
-- API-Anbindung ans Backend
+- **Backend:** Spring Boot (Java 25) als REST API  
+- **Frontend:** Single Page Application (SPA) gebaut mit **Vite**  
+- **Deployment:** **Nginx** als Reverse Proxy zur Auslieferung des Frontends und zur Weiterleitung der API-Anfragen  
+- **Sicherheit:** **HTTPS**-Implementierung über Nginx und Let’s Encrypt  
 
-- Produktionsbuild über Docker + Nginx
+---
 
-**Backend (Spring Boot)**
+## 🚀 Projektstruktur
 
-- REST API (Tasks, User, Auth)
-
-- H2 / PostgreSQL
-
-- DTO- und Service-Schichten
-
-- Exception-Handling
-
-- Production-Profile
-
-**DevOps**
-
-- Dockerfile (Backend)
-
-- Dockerfile (Frontend, Node 24)
-
-- docker-compose.yml
-
-- Build & Deployment optimiert
-
-📂 Projektstruktur
-
-Build & Deployment optimiert
-taskmanager-fullstack/
-```
+```text
+project-root/
 ├── backend/
 │   ├── src/
 │   ├── pom.xml
-│   ├── Dockerfile
-│   └── ...
+│   └── Dockerfile
 ├── frontend/
 │   ├── src/
-│   ├── package.json
-│   ├── Dockerfile
-│   └── ...
+│   └── package.json
+├── nginx/
+│   ├── conf.d/
+│   │   └── default.conf
+│   └── Dockerfile
 └── docker-compose.yml
 ```
+ 
 
-**🐳 Docker – Projekt starten**  
-🔧 **Build**  
-```nginx
-docker compose build
-```
-📍 URLs
-| Service     | URL                                            |
-| ----------- | ---------------------------------------------- |
-| Frontend    | [http://localhost:5173](http://localhost:5173) |
-| Backend API | [http://localhost:8080](http://localhost:8080) |
+## 🐳 Docker Compose – Dienste und Routing
 
-🧪 **Lokale Entwicklung (ohne Docker)**  
- **Backend starten**
-```arduino
+### Dienste
+
+| Dienst     | Technologie              | Port            | Routing              |
+|------------|--------------------------|-----------------|----------------------|
+| **Backend** | Spring Boot (Java 25)   | `8080` (intern) | Erreichbar über `/api/*` |
+| **Nginx**   | Reverse Proxy           | `80`, `443`     | Serviert Frontend & leitet API weiter |
+
+### Beispiel-Routing
+
+| Route         | Bedeutung             | Ziel                          |
+|---------------|-----------------------|-------------------------------|
+| `/`           | Statisches Frontend   | Nginx (`/usr/share/nginx/html`) |
+| `/api/tasks`  | REST-API Endpunkt     | Backend (`backend:8080`)       |
+
+---
+
+## 🚢 Produktion starten (Deployment)
+
+Führe die folgenden Befehle im Projekt-Root-Verzeichnis aus:
+
+1. **Builden und Starten** (beim ersten Mal oder nach Code-Änderungen):
+   ```bash
+   docker compose build
+   docker compose up -d
+Zugriff: Die Anwendung ist nun unter der konfigurierten Domain erreichbar: ➡️ https://sn-taskmanager.de
+
+Deployment nach Update
+Szenario	Befehl
+Frontend + Backend	docker compose build && docker compose up -d
+Nur Backend	docker compose up -d --no-deps --build backend
+🛠 Entwicklungsmodus (Lokal)
+Für die lokale Entwicklung mit Hot-Reload/Live-Update:
+
+1. Backend starten
 cd backend
 mvn spring-boot:run
-```
-**Frontend starten**
-```
+➡️ Backend läuft unter: http://localhost:8080
+
+2. Frontend starten
 cd frontend
 npm install
 npm run dev
-```
-🔒 **Authentifizierung**
+➡️ Frontend läuft unter: http://localhost:5173
 
-- Registrierung & Login
+💡 CORS-Hinweis: CORS ist global im Spring Boot Backend (WebConfig) konfiguriert, um die Entwicklung mit lokalen Ports zu ermöglichen:
+✨ Aktuelle Features
+✅ CRUD-Operationen: Aufgaben erstellen, bearbeiten und löschen
 
-- Passwort-Hashing
+✅ Moderne, ansprechende Benutzeroberfläche
 
-- JWT Tokens (falls aktiviert)
+✅ Sichere HTTPS-Bereitstellung via Nginx
 
-📦 Produktion (VPS Deployment)
-```nginx
-git pull
-docker compose build --no-cache
-docker compose up -d
-```
-📝 **API Endpoints (Beispiele)**
+✅ Vollständige Containerisierung (Docker/Docker Compose)
 
-**GET /api/tasks**
-→ Liefert alle Tasks.
-
-**POST /api/tasks**
-→ Erstellt einen Task.
-
-**DELETE /api/tasks/{id}**
-→ Löscht einen Task.
-
-🛠 **Technologien**  
-**Backend**
-
-- Java 25 (Eclipse Temurin)
-
-- Spring Boot 3
-
-- Maven
-
-- Spring Web
-
-- Spring Security (optional)
-
-- H2 (Dev) / PostgreSQL (Prod)
-
-**Frontend**
-
-- React
-
-- Vite
-
-- Node.js 24 (Docker-Build)
-
-**DevOps**
-
-- Docker
-
-- Docker Compose
-
-- Nginx (Frontend Build)
+📌 Aktuelle Persistenz: Die Daten werden momentan In-Memory gespeichert, eine PostgreSQL-Datenbank folgt in Kürze.
 
 
+## 📌 Roadmap (Nächste Schritte)
 
-
-
-
+- Authentifizierung: Implementierung von JWT und Spring Security  
+- Datenbank: Integration von PostgreSQL für persistente Speicherung  
+- CI/CD: Aufbau einer automatisierten Deployment Pipeline  
 
 
