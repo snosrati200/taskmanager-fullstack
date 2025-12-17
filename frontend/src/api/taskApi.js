@@ -1,18 +1,20 @@
-// src/api/taskApi.js
 import axios from "axios";
 
 const API_URL = "/api/tasks";
 
-// GET all tasks
-export const getTasks = () => axios.get(API_URL);
+const getAuthHeader = () => {
+  const token = localStorage.getItem("jwt_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
-// POST create new task
-export const createTask = (task) => axios.post(API_URL, task);
+export const getTasks = () => 
+  axios.get(API_URL, { headers: getAuthHeader() });
 
-// PUT update with partial object (Spring akzeptiert DTO)
+export const createTask = (task) => 
+  axios.post(API_URL, task, { headers: getAuthHeader() });
+
 export const updateTask = (id, task) =>
-  axios.put(`${API_URL}/${id}`, task);
+  axios.put(`${API_URL}/${id}`, task, { headers: getAuthHeader() });
 
-// DELETE task
 export const deleteTask = (id) =>
-  axios.delete(`${API_URL}/${id}`);
+  axios.delete(`${API_URL}/${id}`, { headers: getAuthHeader() });

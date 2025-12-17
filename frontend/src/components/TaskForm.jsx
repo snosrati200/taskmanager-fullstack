@@ -14,13 +14,13 @@ export default function TaskForm({ onAdd }) {
     <form onSubmit={handleSubmit} className="task-form">
       <input
         type="text"
-        placeholder="Neue Aufgabe eingeben..."
+        placeholder="Enter new task..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         className="task-input"
       />
       <button type="submit" className="add-btn">
-        Hinzufügen
+        Add Task
       </button>
     </form>
   );

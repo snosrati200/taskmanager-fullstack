@@ -1,61 +1,41 @@
-import { useEffect, useState } from "react";
-import Home from "./pages/Home";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
-import {
-  getTasks,
-  createTask,
-  deleteTask,
-  updateTask,
-} from "./api/taskApi";
+// Helper function to check if the user is authenticated
+const isAuthenticated = () => {
+    return localStorage.getItem('jwt_token') !== null;
+};
 
-export default function App() {
-  const [tasks, setTasks] = useState([]);
+// Component to protect private routes
+const PrivateRoute = ({ children }) => {
+    return isAuthenticated() ? children : <Navigate to="/login" />;
+};
 
-  useEffect(() => {
-    loadTasks();
-  }, []);
+function App() {
+    return (
+        <Router>
+            <Routes>
+                {/* Public Route */}
+                <Route path="/login" element={<Login />} />
+                 <Route path="/register" element={<Register />} />
+                {/* Protected Route - Only accessible with a token */}
+                <Route 
+                    path="/" 
+                    element={
+                        <PrivateRoute>
+                            <Home />
+                        </PrivateRoute>
+                    } 
+                />
 
-  async function loadTasks() {
-    const res = await getTasks();
-    setTasks(res.data);
-  }
-
-  async function addTask(task) {
-    const res = await createTask(task);
-    setTasks([...tasks, res.data]);
-  }
-
-  async function removeTask(id) {
-    await deleteTask(id);
-    setTasks(tasks.filter((t) => t.id !== id));
-  }
- 
-  async function toggleTask(id, completed) {
-  const oldTask = tasks.find((t) => t.id === id);
-
-  const updated = {
-    title: oldTask.title,
-    completed: completed
-  };
-
-  const res = await updateTask(id, updated);
-
-  setTasks(
-    tasks.map((t) =>
-      t.id === id ? res.data : t
-    )
-  );
+                {/* Catch-all: Redirect to Home */}
+                <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+        </Router>
+    );
 }
 
- 
-
-  return (
-    <Home
-      tasks={tasks}
-      onAdd={addTask}
-      onDelete={removeTask}
-      onToggle={toggleTask}
-    />
-  );
-}
+export default App;

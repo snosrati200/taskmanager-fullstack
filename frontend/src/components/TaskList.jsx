@@ -2,7 +2,7 @@ import TaskItem from "./TaskItem";
 
 export default function TaskList({ tasks, onDelete, onToggle }) {
   return (
-    <div>
+    <div className="task-list-container">
       {(tasks || []).map((task) => (
         <TaskItem
           key={task.id}

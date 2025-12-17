@@ -10,12 +10,19 @@ export default function TaskItem({ task, onDelete, onToggle }) {
       <span
         style={{
           textDecoration: task.completed ? "line-through" : "none",
+          marginLeft: "10px",
+          flexGrow: 1
         }}
       >
         {task.title}
       </span>
 
-      <button onClick={() => onDelete(task.id)}>Löschen</button>
+      <button 
+        className="delete-btn" 
+        onClick={() => onDelete(task.id)}
+      >
+        Delete
+      </button>
     </div>
   );
 }
