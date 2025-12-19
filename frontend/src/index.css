@@ -5,8 +5,8 @@ body {
   background: #f2f2f2;
 }
 
-/* Container for Home and Login pages */
-.home-container, .login-container {
+/* Container for Home and Login and Register pages */
+.page-container {
   max-width: 700px;
   margin: 40px auto;
   background: white;
@@ -91,72 +91,4 @@ button:hover {
 
 .logout-button:hover {
   background: #5a6268;
-}
-/* ===== AUTHENTICATION STYLES (LOGIN & REGISTER) ===== */
-
-/* Use border-box to prevent padding from expanding the width */
-.auth-wrapper, .auth-wrapper * {
-    box-sizing: border-box;
-}
-
-/* Centered card for Login and Register */
-.auth-card {
-    max-width: 400px;
-    margin: 60px auto;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border: 1px solid #eaeaea;
-}
-
-.auth-card h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #333;
-}
-
-/* Vertical form layout */
-.auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.auth-form input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.auth-form button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.auth-form button:hover {
-    background-color: #0056b3;
-}
-
-.auth-error {
-    color: #d9534f;
-    text-align: center;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.auth-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
 }

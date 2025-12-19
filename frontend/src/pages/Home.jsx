@@ -64,7 +64,7 @@ export default function Home() {
     };
 
     return (
-        <div className="home-container">
+        <div className="page-container">
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h1>Task Manager</h1>
                 <button onClick={handleLogout} className="logout-button">Logout</button>
