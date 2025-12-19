@@ -48,18 +48,25 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .build();
 }
 
-    @Bean
+  @Bean
 public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
 
+    // Allow only specific origins for security
     configuration.setAllowedOrigins(Arrays.asList(
-    "http://localhost:3000",
-    "https://sn-taskmanager.de",
-    "http://sn-taskmanager.de"
-));
+        "http://localhost:5173",    // Local Vite development port
+        "https://sn-taskmanager.de", // Production domain
+        "http://sn-taskmanager.de"
+    ));
+    
+    // Allowed HTTP methods for the REST API
     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-    configuration.setAllowCredentials(true); // Wichtig für JWT/Cookies
+    
+    // Essential headers for JWT authentication and JSON content
+    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+    
+    // Allow credentials for secure token handling
+    configuration.setAllowCredentials(true); 
     
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
