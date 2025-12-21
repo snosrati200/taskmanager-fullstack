@@ -1,6 +1,8 @@
 package com.example.taskmanager.user;
 
+import com.example.taskmanager.entity.Task;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -8,15 +10,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(unique = true, nullable = false)
     private String username;
+    
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role; // 
 
-    public User() {} // Required by JPA
+    // The "Back-reference" to tasks (Optional but good for completeness)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks;
 
-    // Manually add Getters and Setters here
+    public User() {}
+
+    // Getters and Setters
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }

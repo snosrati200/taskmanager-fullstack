@@ -5,12 +5,13 @@ import com.example.taskmanager.user.Role;
 import com.example.taskmanager.user.User;
 import com.example.taskmanager.user.UserRepository;
 
-
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -34,17 +35,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
-
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        // Check if the username is already taken to prevent duplicates
         if (userRepository.findByUsername(request.username()).isPresent()) {
-            return "User already exists";
+            // Returning a Map ensures the body is JSON: {"message": "User already exists"}
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(Map.of("message", "User already exists"));
         }
 
-        /* User user = User.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER) // <--- default role
-                .build(); */
+        // Create and persist the new user with a default role
         User user = new User();
         user.setUsername(request.username());
         user.setPassword(passwordEncoder.encode(request.password()));
@@ -52,39 +52,32 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return "User registered successfully";
+        // Return 201 Created for a successful registration
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Map.of("message", "User registered successfully"));
     }
-
+   
     @PostMapping("/login")
-public AuthResponse login(@RequestBody AuthRequest request) {
-   
-    // 1. Manually fetch the user to check the stored hash
-    User user = userRepository.findByUsername(request.username())
-            .orElseThrow(() -> new RuntimeException("User not found in DB"));
+    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+        try {
+            // 1. Authenticate the user credentials using Spring Security's manager
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.username(), request.password())
+            );
 
-    // 2. Manually check if the password matches the hash
-    boolean matches = passwordEncoder.matches(request.password(), user.getPassword());
-   
+            // 2. If successful, generate a JWT token for the session
+            String token = jwtUtil.generateToken(request.username());
+            
+            // Return the token wrapped in a professional AuthResponse object
+            return ResponseEntity.ok(new AuthResponse(token));
 
-    if (!matches) {
-
-        throw new RuntimeException("Password does not match stored hash");
+        } catch (Exception e) {
+            // 3. Handle incorrect credentials with a 401 Unauthorized status
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Invalid username or password"));
+        }
     }
 
-    // 3. If manual check passes, try the official authentication
-    try {
-        authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.username(), request.password())
-        );
-      
-    } catch (Exception e) {
-        
-        throw e;
-    }
-
-    String token = jwtUtil.generateToken(request.username());
-
-    
-    return new AuthResponse(token);
-   }
 }
