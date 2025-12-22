@@ -8,6 +8,10 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
       - DB_PASSWORD=${DB_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
+    # Wait for the database to be fully initialized and healthy
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - app-net
 
@@ -36,6 +40,12 @@ services:
       POSTGRES_DB: taskdb
       POSTGRES_USER: task_user
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+    # Check if PostgreSQL is ready to accept connections
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U task_user -d taskdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:      
