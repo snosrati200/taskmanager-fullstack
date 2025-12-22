@@ -1,33 +1,70 @@
-# 🚀 TaskManager Fullstack – Production Ready
+# 📘 TaskManager – Professional Fullstack Project
 
-Dieses Projekt ist eine moderne, hochsichere Full-Stack-Anwendung zur Aufgabenverwaltung. Es demonstriert die Implementierung einer sicheren **JWT-Authentifizierung**, einer **PostgreSQL-Persistenz** und eines modernen **Docker-Deployments** mit Java 25.
+This is a modern, containerized **Full-Stack Task Management Application**. It features a secure authentication system and a robust architecture, designed for professional deployment.
 
-## 🛠 Tech-Stack & Architektur
-- **Backend:** Spring Boot (Java 25 – Latest LTS/EA)
-- **Frontend:** React mit Vite (SPA)
-- **Datenbank:** PostgreSQL (Produktion) & H2 (Lokale Entwicklung)
-- **Sicherheit:** Spring Security & JWT (JSON Web Token)
-- **Proxy/Webserver:** Nginx mit SSL/HTTPS-Konfiguration
-- **Orchestrierung:** Docker & Docker Compose
+Live Demo: [https://sn-taskmanager.de](https://sn-taskmanager.de)
 
-## 🔐 Security & Auth Features
-- **JWT Authentication:** Vollständiges Login- und Registrierungssystem mit tokenbasierter Sicherheit.
-- **Passwort-Sicherheit:** Verschlüsselung via BCrypt.
-- **Secrets Management:** Sensible Daten (Secrets, DB-Passwörter) werden sicher über `.env` und Umgebungsvariablen verwaltet – niemals im Quellcode.
-- **CORS Policy:** Sicher konfiguriert für die Kommunikation zwischen Frontend, Backend und Nginx-Proxy.
+[![Tech Stack](https://img.shields.io/badge/Stack-Fullstack-informational)](#tech-stack)
+[![Backend](https://img.shields.io/badge/Backend-Spring%20Boot%20(Java%2025)-brightgreen)](#tech-stack)
+[![Frontend](https://img.shields.io/badge/Frontend-React-blue)](#tech-stack)
+[![Database](https://img.shields.io/badge/Database-PostgreSQL-blue)](#tech-stack)
+[![Deployment](https://img.shields.io/badge/Deployment-Docker%20Compose-blue)](#deployment)
 
-## 🐳 Deployment & Infrastruktur
-Das Projekt nutzt einen **Multi-Stage Docker-Build**, um das Frontend direkt in das Nginx-Image zu integrieren und das Backend hochoptimiert auszuliefern.
+---
 
-### Server-Start (Produktion)
-```bash
-docker compose down && docker compose up --build -d
-📊 Validierung & Qualität
-Backend-Validierung: Strikte Regeln für Task-Namen und Benutzernamen (3 bis 100 Zeichen).
+## ✨ Key Features
 
-Clean Code: Komplette Umstellung auf englische Kommentare und professionelle Namenskonventionen.
+* ✅ **User Authentication:** Complete Register and Login system using secure JWT (JSON Web Tokens).
+* ✅ **User-Specific Task Management:** Fully implemented **Joint User-Task architecture**. Each user can only view, create, and manage their own tasks.
+* ✅ **Input Validation:** Strict validation rules (e.g., usernames and task titles must be between 3 and 100 characters).
+* ✅ **Responsive Design:** Unified UI layout using a global page-container for a consistent user experience.
+* ✅ **Production Ready:** Fully containerized with Docker and served via Nginx Reverse Proxy with HTTPS encryption.
 
-Persistenz: Vollständige PostgreSQL-Integration für dauerhafte Datenspeicherung auf dem Server.
+---
 
-🌐 Live-Demo
-Domain: http://sn-taskmanager.de
+## 🛠 Tech Stack
+
+* **Frontend:** React.js (Vite), CSS3 (Modern Flexbox/Grid)
+* **Backend:** Java 25, Spring Boot, Spring Security (JWT)
+* **Database:** PostgreSQL
+* **DevOps:** Docker, Docker Compose, Nginx
+
+---
+
+## 🚀 Deployment & Installation
+
+### Production (Server)
+To deploy the application on a production server:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd your-repo
+    ```
+2.  **Environment Setup:** Create a `.env` file in the root directory (refer to `.env.example`).
+3.  **Start Services:**
+    ```bash
+    docker-compose up -d --build
+    ```
+
+### Local Development
+1.  **Backend:** Run `mvn spring-boot:run` in the `/backend` folder.
+2.  **Frontend:** Run `npm install` and `npm run dev` in the `/frontend` folder.
+
+---
+
+## 🔒 Security & Validation
+
+* **JWT Authentication:** All protected API endpoints require a valid Bearer token.
+* **Data Integrity:** Server-side validation ensures that only authorized users can modify their specific task data.
+* **CORS:** Configured for secure cross-origin communication between the frontend and backend.
+
+---
+
+## 📂 Project Structure
+
+```text
+├── backend/          # Spring Boot API (JWT, Security, PostgreSQL)
+├── frontend/         # React SPA (Context API, Unified Layout)
+├── nginx/            # Reverse Proxy configuration (HTTPS)
+└── docker-compose.yml# Service orchestration
