@@ -39,6 +39,9 @@ form input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  /* Crucial: ensures padding doesn't push width beyond 100% */
+  box-sizing: border-box; 
+  width: 100%; 
 }
 
 /* Buttons */
@@ -50,6 +53,9 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
+  /* Crucial: same sizing rule as inputs */
+  box-sizing: border-box;
+  width: 100%;
 }
 
 button:hover {

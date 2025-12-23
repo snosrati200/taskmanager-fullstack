@@ -1,59 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+/* Link is required to navigate between pages */
+import { useNavigate, Link } from 'react-router-dom'; 
 import { login } from '../api/authApi';
-import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm();
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
         try {
-            await login(username, password);
-            navigate('/'); // Redirect to Home/Tasks after success
+            const response = await login(data.username, data.password);
+            localStorage.setItem('token', response.token);
+            toast.success('Login successful!');
+            setTimeout(() => navigate('/tasks'), 1500);
         } catch (err) {
-            setError('Invalid username or password');
+            toast.error('Invalid username or password.');
         }
     };
 
     return (
         <div className="page-container">
-            <form onSubmit={handleLogin}>
-                <h2>Login</h2>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+            <Toaster position="top-center" reverseOrder={false} />
+            <h2>Login</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <input 
-                    type="text" 
+                    {...register("username", { required: true })} 
                     placeholder="Username" 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)} 
+                    disabled={isSubmitting}
                 />
                 <input 
                     type="password" 
+                    {...register("password", { required: true })} 
                     placeholder="Password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
+                    disabled={isSubmitting}
                 />
-                <button type="submit">Login</button>
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Logging in...' : 'Login'}
+                </button>
             </form>
 
-            {/* REGISTRATION LINK ADDED HERE */}
-            <div className="register-link">
-                <p>
-                    Don't have an account? 
-                    <button 
-                        type="button" 
-                        // navigates to the new /register route
-                        onClick={() => navigate('/register')}
-                        style={{ background: 'none', border: 'none', color: 'blue', cursor: 'pointer', textDecoration: 'underline' }}
-                    >
-                        Register Now
-                    </button>
-                </p>
-            </div>
-            {/* END OF ADDITION */}
-            
+            {/* The link to the register page */}
+            <p style={{ marginTop: '20px', textAlign: 'center' }}>
+                Don't have an account? <Link to="/register" style={{ color: '#007bff', fontWeight: 'bold' }}>Register here</Link>
+            </p>
         </div>
     );
 };
