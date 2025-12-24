@@ -1,70 +1,58 @@
-# 📘 TaskManager – Professional Fullstack Project
+# 📘 SN-Taskmanager Professional Fullstack Enterprise Project
 
-This is a modern, containerized **Full-Stack Task Management Application**. It features a secure authentication system and a robust architecture, designed for professional deployment.
+This is a modern, production-ready Task Management system, built with a high-performance **Java 25** backend and a reactive **React** frontend. The entire stack is fully containerized and secured for professional deployment.
 
-Live Demo: [https://sn-taskmanager.de](https://sn-taskmanager.de)
-
-[![Tech Stack](https://img.shields.io/badge/Stack-Fullstack-informational)](#tech-stack)
-[![Backend](https://img.shields.io/badge/Backend-Spring%20Boot%20(Java%2025)-brightgreen)](#tech-stack)
-[![Frontend](https://img.shields.io/badge/Frontend-React-blue)](#tech-stack)
-[![Database](https://img.shields.io/badge/Database-PostgreSQL-blue)](#tech-stack)
-[![Deployment](https://img.shields.io/badge/Deployment-Docker%20Compose-blue)](#deployment)
+🔗 **Live Demo:** https://sn-taskmanager.de
 
 ---
 
 ## ✨ Key Features
 
-* ✅ **User Authentication:** Complete Register and Login system using secure JWT (JSON Web Tokens).
-* ✅ **User-Specific Task Management:** Fully implemented **Joint User-Task architecture**. Each user can only view, create, and manage their own tasks.
-* ✅ **Input Validation:** Strict validation rules (e.g., usernames and task titles must be between 3 and 100 characters).
-* ✅ **Responsive Design:** Unified UI layout using a global page-container for a consistent user experience.
-* ✅ **Production Ready:** Fully containerized with Docker and served via Nginx Reverse Proxy with HTTPS encryption.
+* 🔐 **Advanced Authentication**: Secure Register/Login system using JWT and Spring Security for stateless, scalable session management.
+* ⚛️ **Hybrid Frontend Architecture**:
+    * **Managed Forms**: Powered by `react-hook-form` and `react-hot-toast` for high-performance validation and real-time feedback.
+    * **Pure React CRUD**: Core task management using native React Hooks for maximum stability and performance.
+* 🛡️ **Enterprise Data Mapping**: Strict data isolation ensuring user tasks are securely partitioned at the database level.
+* 🚢 **Production-Ready DevOps**: Fully containerized with Docker. Includes an Nginx Reverse Proxy configured for SSL/TLS and secure header forwarding.
 
 ---
 
 ## 🛠 Tech Stack
 
-* **Frontend:** React.js (Vite), CSS3 (Modern Flexbox/Grid)
-* **Backend:** Java 25, Spring Boot, Spring Security (JWT)
-* **Database:** PostgreSQL
-* **DevOps:** Docker, Docker Compose, Nginx
-
----
-
-## 🚀 Deployment & Installation
-
-### Production (Server)
-To deploy the application on a production server:
-
-1.  **Clone the repository:**
-    ```bash
-    git clone <your-repository-url>
-    cd your-repo
-    ```
-2.  **Environment Setup:** Create a `.env` file in the root directory (refer to `.env.example`).
-3.  **Start Services:**
-    ```bash
-    docker-compose up -d --build
-    ```
-
-### Local Development
-1.  **Backend:** Run `mvn spring-boot:run` in the `/backend` folder.
-2.  **Frontend:** Run `npm install` and `npm run dev` in the `/frontend` folder.
-
----
-
-## 🔒 Security & Validation
-
-* **JWT Authentication:** All protected API endpoints require a valid Bearer token.
-* **Data Integrity:** Server-side validation ensures that only authorized users can modify their specific task data.
-* **CORS:** Configured for secure cross-origin communication between the frontend and backend.
+| Component | Technology |
+| :--- | :--- |
+| **Backend** | Java 25, Spring Boot 3.4+, Spring Security, JWT |
+| **Database** | PostgreSQL |
+| **Frontend** | React.js (Vite), Axios, React Hook Form |
+| **Infrastructure** | Nginx, Docker & Docker Compose, Certbot (SSL) |
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-├── backend/          # Spring Boot API (JWT, Security, PostgreSQL)
-├── frontend/         # React SPA (Context API, Unified Layout)
-├── nginx/            # Reverse Proxy configuration (HTTPS)
-└── docker-compose.yml# Service orchestration
+.
+├── backend/                # Spring Boot API (Java 25, Security, JWT)
+├── frontend/               # React SPA (Hybrid State Management)
+├── nginx/                  # Reverse Proxy & SSL Configuration
+└── docker-compose.yml      # Multi-container orchestration
+🚀 Deployment & Installation
+Production (Docker Compose)
+The stack is orchestrated to ensure the database is healthy before the backend starts.
+
+Bash
+
+# Clone the repository
+git clone https://github.com/snosrati200/taskmanager-fullstack.git
+
+# Navigate into the project
+cd taskmanager-fullstack
+
+# Start all services
+docker-compose up -d --build
+```
+## 📝 Architecture Notes
+
+* **Complexity Control:** Specialized libraries handle complex validation states in authentication.
+* **Performance:** Pure hooks minimize overhead, ensuring the core dashboard remains lightweight and maintainable.
+* **Security:** Nginx ensures critical headers like `Authorization` are passed securely to the backend.
