@@ -39,6 +39,8 @@ form input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  box-sizing: border-box; 
+  width: 100%; 
 }
 
 /* Buttons */
